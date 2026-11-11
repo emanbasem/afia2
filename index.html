@@ -45,7 +45,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
@@ -99,7 +99,7 @@ html, body {
 }
 
 body {
-  font-family: 'Tajawal', 'Cairo', system-ui, -apple-system, sans-serif;
+  font-family: 'Montserrat', 'Cairo', system-ui, -apple-system, sans-serif;
   background-color: var(--bg-page);
   color: var(--text-primary);
   line-height: 1.6;
@@ -4188,6 +4188,25 @@ body {
   background: linear-gradient(135deg, #FFFFFF 0%, #E6F6EE 60%, #FFF0ED 100%) !important;
   border-color: #BCEBD5 !important;
 }
+
+/* ==========================================================================
+   CAIRO (ARABIC) & MONTSERRAT (ENGLISH) TYPOGRAPHY SYSTEM
+   ========================================================================== */
+body, html, button, input, select, textarea {
+  font-family: 'Montserrat', 'Cairo', sans-serif !important;
+}
+
+html[lang="ar"] body {
+  font-family: 'Cairo', 'Montserrat', sans-serif !important;
+}
+
+html[lang="en"] body {
+  font-family: 'Montserrat', 'Cairo', sans-serif !important;
+}
+
+.blade-headline {
+  font-family: 'Montserrat', 'Cairo', sans-serif !important;
+}
 </style>
 <script>
   // Auto-resolve image paths whether they are in root folder or inside images/ subfolder
@@ -4501,9 +4520,15 @@ body {
             </div>
             <span class="font-black text-base tracking-tight text-slate-900">عافية <span style="color:#1B7A4C;">AFIA</span></span>
           </div>
-          <button type="button" class="w-9 h-9 rounded-full bg-white/85 backdrop-blur-md text-slate-700 flex items-center justify-center shadow-sm hover:bg-white transition-all" onclick="AfiaApp.navigate('auth')" title="تخطي">
-            <i class="fa-solid fa-angles-left text-xs"></i>
-          </button>
+          <div class="flex items-center gap-2">
+            <button type="button" class="px-3 py-1.5 rounded-full bg-white/85 backdrop-blur-md text-slate-700 text-xs font-bold flex items-center gap-1.5 shadow-sm hover:bg-white transition-all" onclick="AfiaApp.toggleLanguage()" title="Switch Language / تغيير اللغة">
+              <i class="fa-solid fa-globe text-[#2BB673]"></i>
+              <span>English</span>
+            </button>
+            <button type="button" class="w-9 h-9 rounded-full bg-white/85 backdrop-blur-md text-slate-700 flex items-center justify-center shadow-sm hover:bg-white transition-all" onclick="AfiaApp.navigate('auth')" title="تخطي">
+              <i class="fa-solid fa-angles-left text-xs"></i>
+            </button>
+          </div>
         </div>
 
         <!-- منطقة الشرائح المتحركة بجودة فائقة (Ultra-HD Vector Illustrations) -->
@@ -13988,6 +14013,212 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.AfiaApp = AfiaApp;
 
+
+// === ترجمة شاملة فورية لكل نصوص وعناصر التطبيق (عربي <-> English) ===
+(function() {
+  const fullTextMap = {
+    'عافية | AFIA - منظومة صحتك اليومية': 'AFIA | Your Daily Health & Nutrition System',
+    'صحتك اليومية وغذاؤك المتوازن': 'Your Daily Health & Balanced Nutrition',
+    'الرئيسية': 'Home',
+    'الملف الشخصي': 'Profile',
+    'بروفايلي': 'My Profile',
+    'الوصفات': 'Recipes',
+    'سجل السعرات': 'Calorie Tracker',
+    'السعرات': 'Calories',
+    'في ثلاجتي': 'My Fridge',
+    'ثلاجتي': 'Fridge',
+    'المزيد': 'More',
+    'تسجيل الدخول': 'Sign In',
+    'خروج': 'Sign Out',
+    'تعديل بياناتي': 'Edit Profile',
+    'تعديل': 'Edit',
+    'عضو نشط': 'Active Member',
+    'تغيير الصورة الشخصية': 'Change Profile Photo',
+    'العودة لشاشات الترحيب': 'Back to Welcome Screens',
+    '+50 وصفة صحية': '+50 Healthy Recipes',
+    'اطبخ بمكونات ثلاجتك': 'Cook With Your Fridge',
+    'مطبخ عافية الذكي': 'AFIA Smart Kitchen',
+    'وصفاتك ومكوناتك في كتاب واحد': 'Your Recipes & Pantry in One Book',
+    'اختاري المكونات المتوفرة في ثلاجتك واكتشفي أشهى الوصفات المصرية والعالمية فوراً.': 'Select the ingredients in your fridge and discover delicious healthy recipes instantly.',
+    'سعرات محسوبة بدقة': 'Accurately Calculated Calories',
+    'أكل صحي بدون حرمان': 'Healthy Food Without Deprivation',
+    'تغذية متوازنة ومبهجة': 'Balanced & Joyful Nutrition',
+    'استمتعي بأكلك وصحتك معاً': 'Enjoy Your Food & Health Together',
+    'خطط وجبات يومية تشبعك وتوصل بيكي لهدفك الصحي بكل حب وبدون حرمان.': 'Daily meal plans that keep you full and help you reach your health goals with love.',
+    'حكمة ستي والأعشاب': "Grandma's Wisdom & Herbs",
+    'متابعة السعرات والماء': 'Calorie & Water Tracking',
+    'حكمة ستي ومتابعة يومك': "Grandma's Wisdom & Daily Tracker",
+    'دفء النصيحة وصحتك في جيبك': 'Warm Advice & Health in Your Pocket',
+    'استشيري «حكمة ستي» للأعشاب والوصفات، وتابعي سعراتك وشرب الماء يومياً بذكاء.': 'Consult Grandma for herbal remedies and track your daily calories and water smartly.',
+    'خطتك الصحية الذكية': 'Your Smart Health Plan',
+    'خصص جسمك وهدفك': 'Customize Your Body & Goal',
+    'حرك المؤشرات بلمسة واحدة وسنحسب احتياجك اليومي فوراً': 'Slide the indicators with one touch to calculate your daily needs instantly',
+    'اسمك': 'Your Name',
+    'ذكر': 'Male',
+    'أنثى': 'Female',
+    'السن': 'Age',
+    'سنة': 'yrs',
+    'الطول': 'Height',
+    'سم': 'cm',
+    'الوزن الحالي': 'Current Weight',
+    'الوزن المستهدف': 'Target Weight',
+    'كجم': 'kg',
+    'اختر هدفك الصحي :': 'Choose Your Health Goal:',
+    'إنقاص الوزن': 'Weight Loss',
+    'تثبيت وصحة': 'Maintain & Wellness',
+    'بناء عضلات': 'Muscle Gain',
+    'احتياجك اليومي المحسوب': 'Calculated Daily Target',
+    'سعر': 'kcal',
+    'أكواب': 'cups',
+    'تجهيز مطبخي ووجباتي الآن': 'Prepare My Kitchen & Meals Now',
+    'أهلاً بك في مطبخ عافية يا': 'Welcome to AFIA Kitchen,',
+    'بطل': 'Champion',
+    'التصنيفات': 'Categories',
+    'الكل': 'All',
+    'محلي': 'Local',
+    'سريع': 'Quick',
+    'مشروبات': 'Drinks',
+    'حلويات': 'Desserts',
+    'في 30 دقيقة': 'Under 30m',
+    'تريند': 'Trending',
+    'فاست فود': 'Fast Food',
+    'فطور': 'Breakfast',
+    'غداء': 'Lunch',
+    'عشاء': 'Dinner',
+    'سناك': 'Snack',
+    'المفضلة': 'Favorites',
+    'عالي البروتين': 'High Protein',
+    'قليل الكارب': 'Low Carb',
+    'نباتي': 'Plant-Based',
+    'وجبة': 'Meal',
+    '+ ماء (250ml)': '+ Water (250ml)',
+    'تمرين': 'Workout',
+    'الثلاجة': 'Fridge',
+    'المساعد': 'Assistant',
+    'الماكروز': 'Macros',
+    'الماء': 'Water',
+    'حرق التمارين': 'Workout Burn',
+    'ضمن الهدف ✓': 'On Track ✓',
+    'الصيام المتقطع (16:8)': 'Intermittent Fasting (16:8)',
+    'جاري الصيام': 'Fasting Active',
+    'نافذة الصيام نشطة': 'Fasting Window Active',
+    'إنهاء الصيام': 'End Fast',
+    'الوزن والـ BMI': 'Weight & BMI',
+    'الحالي': 'Current',
+    'الهدف': 'Target',
+    'متابعة شرب الماء': 'Water Hydration Tracker',
+    'إضافة كوب': 'Add Cup',
+    'نشاط الأسبوع': 'Weekly Activity',
+    'متوسط يومي': 'Daily Avg',
+    'إجمالي الحرق': 'Total Burn',
+    'الالتزام': 'Adherence',
+    'ملخص صحتك اليوم': "Today's Health Summary",
+    'الانتقال لسجل السعرات التفصيلي': 'Go to Detailed Calorie Tracker',
+    'وجباتي المسجلة لليوم': 'My Logged Meals Today',
+    'تسجيل وجبة جديدة': 'Log New Meal',
+    'ماذا في ثلاجتي؟ (ابحث بالمكونات)': "What's in My Fridge? (Search by Ingredients)",
+    'ابحث بالمكونات اللى عندك': 'Search With Ingredients You Have',
+    'ابحث بالمكونات': 'Find Recipes',
+    'إضافة': 'Add',
+    'أكلات صحية يمكنك إعدادها الآن:': 'Healthy Meals You Can Cook Right Now:',
+    'دقيقة': 'min',
+    'سهل': 'Easy',
+    'التحضير': 'Prep',
+    'مصري': 'Egyptian',
+    'أصيل': 'Authentic',
+    'المكونات :': 'Ingredients:',
+    'طريقة التحضير :': 'Instructions:',
+    'تسجيل الوجبة في سعرات اليوم': "Log Meal to Today's Calories",
+    'رجوع': 'Back',
+    'إغلاق': 'Close',
+    'إلغاء': 'Cancel',
+    'حكمة ستي': "Grandma's Wisdom",
+    'طمني عليك يا ضنايا': 'How are you feeling today?',
+    'بركة البيت ونصائح الأكل والشرب البلدي': 'Warm home remedies & traditional nutrition tips',
+    'الحمد لله وزي الفل': 'Doing great, thank God!',
+    'بطني وجعاني وحموضة': 'Stomach ache & heartburn',
+    'عندي برد وكحة': 'Cold & cough',
+    'مرهق ومحتاج طاقة': 'Tired & need energy',
+    'متوتر ومش عارف أنام': "Stressed & can't sleep",
+    'أكلة في 30 دقيقة': '30-minute meal',
+    'نفسي في حاجة حلوة': 'Craving something sweet',
+    'عايز أخس وأحرق دهون': 'Want to lose weight',
+    'ادعيلي يا ستي': 'Pray for me, Grandma'
+  };
+
+  const reverseTextMap = {};
+  Object.keys(fullTextMap).forEach(arKey => {
+    reverseTextMap[fullTextMap[arKey]] = arKey;
+  });
+
+  const placeholderMap = {
+    'ابحث عن وصفة لتحضيرها اليوم...': 'Search for a recipe to cook today...',
+    'ابحث عن كشري، طعمية، ملوخية، سمك بلطي...': 'Search Koshari, Falafel, Molokhia, Grilled Fish...',
+    'أو اكتب مكوناً آخر (مثلاً: جبنة موزاريلا، ليمون، سبانخ)...': 'Or type another ingredient (e.g., Mozzarella, Lemon, Spinach)...',
+    'اسم الوجبة (مثلاً: رغيف بلدي مع جبن قريش)...': 'Meal name (e.g., Whole wheat pita with cottage cheese)...',
+    'السعرات': 'Calories',
+    'اكتب سؤالك هنا...': 'Type your question here...',
+    'اكتب لستي اللي حاسس بيه...': 'Tell Grandma how you feel...',
+    'اسم المستخدم أو البريد': 'Username or email',
+    'كلمة المرور': 'Password',
+    'الاسم بالكامل': 'Full Name',
+    'كلمة المرور الجديدة': 'New Password'
+  };
+
+  const reversePlaceholderMap = {};
+  Object.keys(placeholderMap).forEach(arP => {
+    reversePlaceholderMap[placeholderMap[arP]] = arP;
+  });
+
+  function translateDOMTree(lang) {
+    const isAr = lang === 'ar';
+    const dict = isAr ? reverseTextMap : fullTextMap;
+    const pDict = isAr ? reversePlaceholderMap : placeholderMap;
+
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while ((node = walker.nextNode())) {
+      const raw = node.nodeValue;
+      const trimmed = raw.trim();
+      if (trimmed && dict[trimmed]) {
+        node.nodeValue = raw.replace(trimmed, dict[trimmed]);
+      }
+    }
+
+    document.querySelectorAll('input[placeholder], textarea[placeholder]').forEach(inp => {
+      const p = inp.getAttribute('placeholder').trim();
+      if (pDict[p]) {
+        inp.setAttribute('placeholder', pDict[p]);
+      }
+    });
+
+    document.querySelectorAll('[onclick*="toggleLanguage"] span').forEach(sp => {
+      if (sp.id === 'lang-toggle-text' || sp.textContent.trim() === 'English' || sp.textContent.trim() === 'العربية') {
+        sp.textContent = isAr ? 'English' : 'العربية';
+      }
+    });
+  }
+
+  const origApplyLang = AfiaApp.applyLanguage.bind(AfiaApp);
+  AfiaApp.applyLanguage = function(lang) {
+    origApplyLang(lang);
+    if (typeof this.renderProfile === 'function') this.renderProfile();
+    if (typeof this.renderTracker === 'function') this.renderTracker();
+    if (typeof this.renderFridgeSection === 'function') this.renderFridgeSection();
+    if (typeof this.renderCalculator === 'function') this.renderCalculator();
+    if (typeof this.renderPlanner === 'function') this.renderPlanner();
+    if (typeof this.renderAdmin === 'function') this.renderAdmin();
+    translateDOMTree(lang);
+  };
+
+  const origOpenRecipeModal = AfiaApp.openRecipeModal.bind(AfiaApp);
+  AfiaApp.openRecipeModal = function(id) {
+    origOpenRecipeModal(id);
+    if (this.state.currentLang === 'en') {
+      translateDOMTree('en');
+    }
+  };
+})();
 </script>
 </body>
 </html>
